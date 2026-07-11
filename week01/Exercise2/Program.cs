@@ -2,61 +2,48 @@ using System;
 
 class Program
 {
-    static void Main()
+    static void Main(string[] args)
     {
-        Console.Write("Enter your grade percentage: ");
-        string input = Console.ReadLine();
-        int grade = int.Parse(input);
+        string playAgain = "yes";
 
-        string letter;
+        while (playAgain == "yes")
+        {
+            
+            Random randomGenerator = new Random();
+            int magicNumber = randomGenerator.Next(1, 101);
 
-        if (grade >= 90)
-        {
-            letter = "A";
-        }
-        else if (grade >= 80)
-        {
-            letter = "B";
-        }
-        else if (grade >= 70)
-        {
-            letter = "C";
-        }
-        else if (grade >= 60)
-        {
-            letter = "D";
-        }
-        else
-        {
-            letter = "F";
-        }
+            int guess = -1;
+            int attempts = 0;
 
-       
-        string sign = "";
-        int lastDigit = grade % 10;
+            Console.WriteLine("Welcome to Guess My Number!");
+            Console.WriteLine("I'm thinking of a number between 1 and 100.");
 
-        if (letter != "F" && letter != "A") // no hay F+ ni A+
-        {
-            if (lastDigit >= 7)
-                sign = "+";
-            else if (lastDigit < 3)
-                sign = "-";
-        }
-        else if (letter == "A" && lastDigit < 3)
-        {
-            sign = "-";
+
+            while (guess != magicNumber)
+            {
+                Console.Write("What is your guess? ");
+                guess = int.Parse(Console.ReadLine());
+                attempts++;
+
+                if (guess < magicNumber)
+                {
+                    Console.WriteLine("Higher");
+                }
+                else if (guess > magicNumber)
+                {
+                    Console.WriteLine("Lower");
+                }
+                else
+                {
+                    Console.WriteLine($"You guessed it! It took you {attempts} tries.");
+                }
+            }
+
+           
+            Console.Write("Do you want to play again? (yes/no): ");
+            playAgain = Console.ReadLine().ToLower();
         }
 
-        Console.WriteLine($"Your grade is: {letter}{sign}");
-
- 
-        if (grade >= 70)
-        {
-            Console.WriteLine("Congratulations, you passed!");
-        }
-        else
-        {
-            Console.WriteLine("Keep trying, you can do better next time!");
-        }
+        Console.WriteLine("Thanks for playing!");
     }
 }
